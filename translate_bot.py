@@ -1,14 +1,13 @@
 import goslate
 import json
 import requests
+import random
 from twython import Twython
 
 # TODO exception 
 # TODO length restriction on twitter posts?
 # TODO edit dist?
-# TODO random choice for subset of all languages?
-
-LANGUAGES = ['ne', 'de']
+# TODO random choice for subset of all languages or use all langs
 
 
 def get_quote():
@@ -23,7 +22,7 @@ def get_quote():
     author = "John R. Tunis" 
     return quote, author
 
-def translate(quote, langs):
+def translate(quote):
     """Translates and reverse-translates the given quote in
     different languages"""
     # the keys in quote_dict are languages
@@ -31,13 +30,17 @@ def translate(quote, langs):
     # translated into the destination language and
     # the reverse-translation in the source language
     gs = goslate.Goslate()
-    quote_dict = {lang: gs.translate(gs.translate(quote, lang), 'en') for lang in langs}
+    all_langs = gs.get_languages().keys()
+    num_langs = 10
+    assert(len(all_langs) > num_langs)
+    lang_indices = random.sample(xrange(len(all_langs)), num_langs)
+    quote_dict = {all_langs[lang_index]: gs.translate(gs.translate(quote, all_langs[lang_index]), 'en') for lang_index in lang_indices}
     return quote_dict
 
 def find_furthest_quote(quote, quote_dict):
     """finds a reverse-translated quote that is most different
     from the original quote"""
-    lang = LANGUAGES[0]
+    lang = quote_dict.keys()[0] 
     furthest_quote = quote_dict[lang]
     return furthest_quote, lang
 
@@ -50,7 +53,7 @@ def tweet(quote, reverse_quote, lang, author):
 
 def main():
     quote, author = get_quote()
-    quote_dict = translate(quote, LANGUAGES)
+    quote_dict = translate(quote)
     print 'quote_dict:', quote_dict
     furthest_quote, lang = find_furthest_quote(quote, quote_dict)
     print 'furthest quote:', furthest_quote
