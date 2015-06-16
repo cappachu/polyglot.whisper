@@ -2,6 +2,8 @@ import goslate
 import json
 import requests
 import random
+import operator
+import editdistance 
 from twython import Twython
 
 # TODO exception 
@@ -31,18 +33,22 @@ def translate(quote):
     # the reverse-translation in the source language
     gs = goslate.Goslate()
     all_langs = gs.get_languages().keys()
+    # TODO remove source lang 'en'
     num_langs = 10
     assert(len(all_langs) > num_langs)
     lang_indices = random.sample(xrange(len(all_langs)), num_langs)
+    # TODO use source and target lang?
     quote_dict = {all_langs[lang_index]: gs.translate(gs.translate(quote, all_langs[lang_index]), 'en') for lang_index in lang_indices}
     return quote_dict
 
 def find_furthest_quote(quote, quote_dict):
     """finds a reverse-translated quote that is most different
     from the original quote"""
-    lang = quote_dict.keys()[0] 
-    furthest_quote = quote_dict[lang]
-    return furthest_quote, lang
+    #lang = quote_dict.keys()[0] 
+    #furthest_quote = quote_dict[lang]
+    furthest_quote = max(quote_dict.iteritems(), key=lambda q: editdistance.eval(q, quote))
+    #print 'MAX:', furthest_quote
+    return furthest_quote
 
 def tweet(quote, reverse_quote, lang, author):
     print 'tweet:'
@@ -55,7 +61,7 @@ def main():
     quote, author = get_quote()
     quote_dict = translate(quote)
     print 'quote_dict:', quote_dict
-    furthest_quote, lang = find_furthest_quote(quote, quote_dict)
+    lang, furthest_quote = find_furthest_quote(quote, quote_dict)
     print 'furthest quote:', furthest_quote
     tweet(quote, furthest_quote, lang, author)
     
