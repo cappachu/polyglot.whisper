@@ -64,6 +64,7 @@ def whisper(quote, num_people):
     """whisper quote to several people who speak different languages"""
     gs = goslate.Goslate()
     all_langs = gs.get_languages()
+    del all_langs['en']
     all_lang_codes = all_langs.keys()
     assert(len(all_lang_codes) >= num_people)
     lang_indices = random.sample(xrange(len(all_lang_codes)), num_people)
@@ -75,17 +76,18 @@ def whisper(quote, num_people):
         new_quote = gs.translate(new_quote, lang_code)
     # translate back to english
     new_quote = gs.translate(new_quote, 'en')
+    print 'English -> ',
     for l in lang_transitions:
         print all_langs[l], '->',
     print 'English\n'
     return new_quote
 
 
-def tweet(quote, reverse_quote, lang, author):
-    print 'tweet:'
-    print '\t', 'en:', quote 
-    print '\t', lang, ':', reverse_quote
-    print '\t author:', author
+
+def tweet(quote, new_quote, author):
+    print quote 
+    print new_quote
+    print author
 
 
 
@@ -94,12 +96,12 @@ def main():
     
     #quote_dict = reverse_translate(quote)
     #lang, furthest_quote = find_furthest_quote(quote, quote_dict)
-    #tweet(quote, furthest_quote, lang, author)
+    #tweet(quote, furthest_quote, author)
     
     num_people = 10
     new_quote = whisper(quote, num_people)
     lang = 'new'
-    tweet(quote, new_quote, lang, author)
+    tweet(quote, new_quote, author)
 
             
 if __name__ == '__main__':
