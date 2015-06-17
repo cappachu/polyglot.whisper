@@ -4,12 +4,12 @@ import requests
 import random
 import operator
 import editdistance 
+import argparse
 from sets import Set
-from twython import Twython
+from twython import Twython, TwythonError
 
-# TODO exception 
-# TODO length restriction on twitter posts?
-# TODO edit dist?
+# TODO length restriction (translation api, twitter posts)?
+# TODO handle exceptions (requests, twitter, quote website)
 # TODO random choice for subset of all languages or use all langs
 # TODO use of color in languages, connotations
 
@@ -84,7 +84,16 @@ def whisper(quote, num_people):
 
 
 
-def tweet(quote, new_quote, author):
+def tweet(quote, new_quote, author, twitter_keys):
+    """twitter_keys -> (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)"""
+    APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET = twitter_keys
+
+    twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+    try:        
+        status = '\n'.join([quote, new_quote, author])
+        twitter.update_status(status=status)
+    except TwythonError as e:
+        print e
     print quote 
     print new_quote
     print author
@@ -92,16 +101,25 @@ def tweet(quote, new_quote, author):
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Polyglot Whispers')
+    parser.add_argument('twitter_keys', nargs=4, metavar=('APP_KEY', 'APP_SECRET', 'OAUTH_TOKEN', 'OAUTH_TOKEN_SECRET'), help='APP_KEY APP_SECRET OAUTH_TOKEN OAUTH_TOKEN_SECRET')
+    args = vars(parser.parse_args())
+    if not args['twitter_keys']:
+        parser.print_help()
+        return
+    twitter_keys = args['twitter_keys']
+    
     quote, author = get_quote()
     
     #quote_dict = reverse_translate(quote)
-    #lang, furthest_quote = find_furthest_quote(quote, quote_dict)
+    #lang, furthest_quote = find_furthest_quote(quote, quote_dict, twitter_keys)
     #tweet(quote, furthest_quote, author)
     
+    #twitter_keys -> (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
     num_people = 10
     new_quote = whisper(quote, num_people)
     lang = 'new'
-    tweet(quote, new_quote, author)
+    tweet(quote, new_quote, author, twitter_keys)
 
             
 if __name__ == '__main__':
