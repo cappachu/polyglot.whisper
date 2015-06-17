@@ -26,7 +26,7 @@ def get_quote():
     author = "John R. Tunis" 
     return quote, author
 
-def translate(quote):
+def reverse_translate(quote):
     """Translates and reverse-translates the given quote in
     different languages"""
     # the keys in quote_dict are languages
@@ -60,6 +60,27 @@ def find_furthest_quote(quote, quote_dict):
     furthest_quote = max(quote_dict.iteritems(), key=lambda qtuple: symmetric_word_dist(qtuple[1], quote))
     return furthest_quote
 
+def whisper(quote, num_people):
+    """whisper quote to several people who speak different languages"""
+    gs = goslate.Goslate()
+    all_langs = gs.get_languages()
+    all_lang_codes = all_langs.keys()
+    assert(len(all_lang_codes) >= num_people)
+    lang_indices = random.sample(xrange(len(all_lang_codes)), num_people)
+    lang_transitions = []
+    new_quote = quote
+    for lang_index in lang_indices:
+        lang_code = all_lang_codes[lang_index]
+        lang_transitions.append(lang_code)
+        new_quote = gs.translate(new_quote, lang_code)
+    # translate back to english
+    new_quote = gs.translate(new_quote, 'en')
+    for l in lang_transitions:
+        print all_langs[l], '->',
+    print 'English\n'
+    return new_quote
+
+
 def tweet(quote, reverse_quote, lang, author):
     print 'tweet:'
     print '\t', 'en:', quote 
@@ -67,12 +88,19 @@ def tweet(quote, reverse_quote, lang, author):
     print '\t author:', author
 
 
+
 def main():
     quote, author = get_quote()
-    quote_dict = translate(quote)
-    lang, furthest_quote = find_furthest_quote(quote, quote_dict)
-    tweet(quote, furthest_quote, lang, author)
     
+    #quote_dict = reverse_translate(quote)
+    #lang, furthest_quote = find_furthest_quote(quote, quote_dict)
+    #tweet(quote, furthest_quote, lang, author)
+    
+    num_people = 10
+    new_quote = whisper(quote, num_people)
+    lang = 'new'
+    tweet(quote, new_quote, lang, author)
+
             
 if __name__ == '__main__':
     main()
