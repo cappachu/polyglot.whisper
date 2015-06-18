@@ -27,34 +27,37 @@ def whisper(quote, num_people):
     """whisper quote to several people who speak different languages"""
     gs = goslate.Goslate()
     all_langs = gs.get_languages()
-    # remove english
-    del all_langs['en']
     all_lang_codes = all_langs.keys()
     assert(len(all_lang_codes) >= num_people)
     lang_indices = random.sample(xrange(len(all_lang_codes)), num_people)
+    language_path = ['English']
     new_quote = quote
     for lang_index in lang_indices:
         lang_code = all_lang_codes[lang_index]
         new_quote = gs.translate(new_quote, lang_code)
+        language_path.append(all_langs[lang_code])
     # translate back to english
     new_quote = gs.translate(new_quote, 'en')
-    return new_quote
+    language_path.append('English')
+    return new_quote, language_path
 
 
-def tweet(quote, new_quote, author, twitter_keys):
+def tweet(quote, new_quote, author, language_path, twitter_keys):
     """twitter_keys -> (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)"""
     APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET = twitter_keys
 
     twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
     try:        
-        status = '\n'.join([quote, new_quote, author])
+        status = '\n'.join([quote, new_quote])
         twitter.update_status(status=status)
     except TwythonError as e:
         print e
 
-    #print quote 
-    #print new_quote
-    #print author
+    print language_path[0],
+    for lang in language_path[1:]:
+        print "-> %s" % (lang),
+    print "\n%s - %s" % (quote, author)
+    print "%s - %s" % (new_quote, 'Polyglot Whisper')
 
 
 
@@ -71,8 +74,8 @@ def main():
     num_whispers = args['numwhispers'] or NUM_WHISPERS
     
     quote, author = get_quote()
-    new_quote = whisper(quote, num_whispers)
-    tweet(quote, new_quote, author, twitter_keys)
+    new_quote, language_path = whisper(quote, num_whispers)
+    tweet(quote, new_quote, author, language_path, twitter_keys)
 
             
 if __name__ == '__main__':
