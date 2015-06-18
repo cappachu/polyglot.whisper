@@ -18,21 +18,17 @@ A Couple of Whispers
 **There's such a thin line between winning and losing - John R. Tunis**
 
 
-**The line between victory or defeat is not necessary - Polyglot Whisper**  
-
 (English -> Latvian -> Sinhala -> Filipino -> Irish -> Cebuano -> Armenian -> Igbo -> Malayalam -> Norwegian -> Galician -> English)
 
+**The line between victory or defeat is not necessary - Polyglot Whisper**  
 
-
-**Win or lose, not punishment - Polyglot Whisper**  
 
 (English ->  Catalan -> Romanian -> Japanese -> Vietnamese -> Urdu -> Haitian Creole -> Sinhala -> Yoruba -> Turkish -> Macedonian -> English)
 
+**Win or lose, not punishment - Polyglot Whisper**  
 
-
-**There is a way to lose weight - Polyglot Whisper**  
 
 (English ->  Thai -> Turkish -> Sundanese -> Tamil -> Croatian -> Chinese (Simplified) -> Hebrew -> Telugu -> Slovenian -> Spanish -> English)
 
-
+**There is a way to lose weight - Polyglot Whisper**  
 
