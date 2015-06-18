@@ -14,26 +14,22 @@ The original goal was to create a twitter bot that translated a phrase from Engl
 
 A Couple of Whispers
 --------------------
-English -> Latvian -> Sinhala -> Filipino -> Irish -> Cebuano -> Armenian -> Igbo -> Malayalam -> Norwegian -> Galician -> English
 
-There's such a thin line between winning and losing - John R. Tunis
+**There's such a thin line between winning and losing - John R. Tunis**
+
 
 **The line between victory or defeat is not necessary - Polyglot Whisper**
+(English -> Latvian -> Sinhala -> Filipino -> Irish -> Cebuano -> Armenian -> Igbo -> Malayalam -> Norwegian -> Galician -> English)
 
 
-English ->  Catalan -> Romanian -> Japanese -> Vietnamese -> Urdu -> Haitian Creole -> Sinhala -> Yoruba -> Turkish -> Macedonian -> English
-
-There's such a thin line between winning and losing - John R. Tunis
 
 **Win or lose, not punishment - Polyglot Whisper**
+(English ->  Catalan -> Romanian -> Japanese -> Vietnamese -> Urdu -> Haitian Creole -> Sinhala -> Yoruba -> Turkish -> Macedonian -> English)
 
 
-English ->  Thai -> Turkish -> Sundanese -> Tamil -> Croatian -> Chinese (Simplified) -> Hebrew -> Telugu -> Slovenian -> Spanish -> English
-
-There's such a thin line between winning and losing - John R. Tunis
 
 **There is a way to lose weight - Polyglot Whisper**
-
+(English ->  Thai -> Turkish -> Sundanese -> Tamil -> Croatian -> Chinese (Simplified) -> Hebrew -> Telugu -> Slovenian -> Spanish -> English)
 
 
 
