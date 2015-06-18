@@ -42,7 +42,7 @@ def whisper(quote, num_people):
     return new_quote, language_path
 
 
-def tweet(quote, new_quote, author, language_path, twitter_keys):
+def tweet_whisper(quote, new_quote, author, language_path, twitter_keys):
     """twitter_keys -> (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)"""
     APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET = twitter_keys
 
@@ -53,6 +53,8 @@ def tweet(quote, new_quote, author, language_path, twitter_keys):
     except TwythonError as e:
         print e
 
+
+def print_whisper(quote, new_quote, author, language_path):
     print "%s - %s" % (quote, author)
     print language_path[0],
     for lang in language_path[1:]:
@@ -75,7 +77,8 @@ def main():
     
     quote, author = get_quote()
     new_quote, language_path = whisper(quote, num_whispers)
-    tweet(quote, new_quote, author, language_path, twitter_keys)
+    tweet_whisper(quote, new_quote, author, language_path, twitter_keys)
+    print_whisper(quote, new_quote, author, language_path)
 
             
 if __name__ == '__main__':
