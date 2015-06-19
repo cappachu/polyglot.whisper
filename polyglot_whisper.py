@@ -55,11 +55,13 @@ def tweet_whisper(quote, new_quote, author, language_path, twitter_keys):
 
 
 def print_whisper(quote, new_quote, author, language_path):
+    print '\n'
     print "%s - %s" % (quote, author)
     print language_path[0],
     for lang in language_path[1:]:
         print "-> %s" % (lang),
     print "\n%s - %s" % (new_quote, 'Polyglot Whisper')
+    print '\n'
 
 
 
