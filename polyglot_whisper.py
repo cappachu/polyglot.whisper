@@ -7,19 +7,6 @@ from twython import Twython, TwythonError
 
 NUM_WHISPERS = 10
 
-def get_quote():
-    """Get a quote from theysaidso.com"""
-    URL = 'http://api.theysaidso.com/qod.json'
-    response = requests.get(URL)
-    json_dict = json.loads(response.text)
-    #length = json_dict['contents']['length']
-    #author = json_dict['contents']['author']
-    #quote = json_dict['contents']['quote']
-    # TODO find a free quotes repo 
-    quote = "There's such a thin line between winning and losing."
-    author = "John R. Tunis" 
-    return quote, author
-
 
 def whisper(quote, num_people):
     """whisper quote to several people who speak different languages.
@@ -53,6 +40,20 @@ def tweet_whisper(quote, new_quote, author, language_path, twitter_keys):
         twitter.update_status(status=status)
     except TwythonError as e:
         print e
+
+
+def get_quote():
+    """Get a quote from theysaidso.com"""
+    URL = 'http://api.theysaidso.com/qod.json'
+    response = requests.get(URL)
+    json_dict = json.loads(response.text)
+    #length = json_dict['contents']['length']
+    #author = json_dict['contents']['author']
+    #quote = json_dict['contents']['quote']
+    # TODO find a free quotes repo 
+    quote = "There's such a thin line between winning and losing."
+    author = "John R. Tunis" 
+    return quote, author
 
 
 def print_whisper(quote, new_quote, author, language_path):
