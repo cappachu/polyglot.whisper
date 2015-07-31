@@ -5,26 +5,26 @@ import random
 import argparse
 from twython import Twython, TwythonError
 
-# TODO handle length restriction (translation api, twitter posts)?
-# TODO handle exceptions (requests, twitter, quote website)
-# TODO use of color in languages, connotations
 NUM_WHISPERS = 10
 
 def get_quote():
+    """Get a quote from theysaidso.com"""
     URL = 'http://api.theysaidso.com/qod.json'
     response = requests.get(URL)
     json_dict = json.loads(response.text)
     #length = json_dict['contents']['length']
     #author = json_dict['contents']['author']
     #quote = json_dict['contents']['quote']
-    # TODO remove
+    # TODO find a free quotes repo 
     quote = "There's such a thin line between winning and losing."
     author = "John R. Tunis" 
     return quote, author
 
 
 def whisper(quote, num_people):
-    """whisper quote to several people who speak different languages"""
+    """whisper quote to several people who speak different languages.
+    Translates the quote from English to several languages before translating
+    back to English"""
     gs = goslate.Goslate()
     all_langs = gs.get_languages()
     all_lang_codes = all_langs.keys()
@@ -43,7 +43,8 @@ def whisper(quote, num_people):
 
 
 def tweet_whisper(quote, new_quote, author, language_path, twitter_keys):
-    """twitter_keys -> (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)"""
+    """Tweet the quote. Expects twitter_keys to be a list consisting of: 
+        (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)"""
     APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET = twitter_keys
 
     twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -84,4 +85,7 @@ def main():
 
             
 if __name__ == '__main__':
+    # TODO handle length restriction (translation api, twitter posts)?
+    # TODO handle exceptions (requests, twitter, quote website)
+    # TODO use of color in languages, connotations
     main()
