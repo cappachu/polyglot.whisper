@@ -9,7 +9,7 @@ https://twitter.com/polyglotwhisper
 
 Motivation
 ----------
-The original goal was to create a twitter bot that translated a phrase from English to another language and back to English, which I hoped would engender a conversation about unique features of the culture of the languages origin. Instead the bot plays on the themes of differences of perspective and interpretation as the phrase evolves, cumalatively collecting and producing a multitude of interpretations (rather than errors) of the same phrase over the course of a day. 
+The original goal was to create a twitter bot that translated a phrase from English to another language and back to English, which I hoped would engender a conversation about unique features of the culture of the languages origin. Instead the bot plays on the themes of differences of perspective and interpretation as the phrase evolves, cumulatively collecting and producing a multitude of interpretations (rather than errors) of the same phrase over the course of a day. 
 
 
 A Couple of Whispers
